@@ -61,7 +61,12 @@ let currentSelectedTime = '10:00 AM EST';
 
 // Initialize App
 document.addEventListener('DOMContentLoaded', () => {
-  renderPage('home');
+  const hash = window.location.hash.replace('#', '');
+  if (['home', 'services', 'audit', 'about', 'contact'].includes(hash)) {
+    navigateTo(hash);
+  } else {
+    navigateTo('home');
+  }
 });
 
 // Navigation Router
