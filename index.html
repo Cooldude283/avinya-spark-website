@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Avinya Spark International | AI Solutions & Free AI Audit</title>
+  <meta name="description" content="Avinya Spark International helps businesses grow using cutting-edge AI tools. Take our free AI Audit to evaluate your business AI readiness.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Header / Navigation -->
+  <header class="site-header">
+    <div class="container header-container">
+      <a href="#home" class="logo" onclick="navigateTo('home'); return false;">
+        <div class="logo-icon">
+          <i data-lucide="sparkles"></i>
+        </div>
+        <div class="logo-text">
+          <span class="brand-name">AVINYA SPARK</span>
+          <span class="brand-tag">INTERNATIONAL</span>
+        </div>
+      </a>
+
+      <nav class="main-nav">
+        <a href="#home" id="nav-home" class="nav-link active" onclick="navigateTo('home'); return false;">Home</a>
+        <a href="#services" id="nav-services" class="nav-link" onclick="navigateTo('services'); return false;">Services</a>
+        <a href="#audit" id="nav-audit" class="nav-link nav-highlight" onclick="navigateTo('audit'); return false;">Free AI Audit</a>
+        <a href="#about" id="nav-about" class="nav-link" onclick="navigateTo('about'); return false;">About</a>
+        <a href="#contact" id="nav-contact" class="nav-link" onclick="navigateTo('contact'); return false;">Contact</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="btn btn-primary nav-cta" onclick="navigateTo('audit')">
+          <i data-lucide="cpu"></i>
+          <span>Take Free AI Audit</span>
+        </button>
+        <button class="mobile-menu-toggle" id="mobile-menu-btn" aria-label="Toggle menu" onclick="toggleMobileMenu()">
+          <i data-lucide="menu"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Dropdown -->
+    <div class="mobile-nav" id="mobile-nav">
+      <a href="#home" class="mobile-nav-link" onclick="navigateTo('home'); closeMobileMenu(); return false;">Home</a>
+      <a href="#services" class="mobile-nav-link" onclick="navigateTo('services'); closeMobileMenu(); return false;">Services</a>
+      <a href="#audit" class="mobile-nav-link highlight" onclick="navigateTo('audit'); closeMobileMenu(); return false;">Free AI Audit</a>
+      <a href="#about" class="mobile-nav-link" onclick="navigateTo('about'); closeMobileMenu(); return false;">About</a>
+      <a href="#contact" class="mobile-nav-link" onclick="navigateTo('contact'); closeMobileMenu(); return false;">Contact</a>
+      <button class="btn btn-primary btn-full mt-4" onclick="navigateTo('audit'); closeMobileMenu();">
+        <i data-lucide="cpu"></i> Take Free AI Audit
+      </button>
+    </div>
+  </header>
+
+  <!-- Dynamic Page Container -->
+  <main id="app-content">
+    <!-- Pages rendered via JS -->
+  </main>
+
+  <!-- Global Booking Modal -->
+  <div class="modal-backdrop" id="booking-modal">
+    <div class="modal-card">
+      <button class="modal-close" onclick="closeBookingModal()">
+        <i data-lucide="x"></i>
+      </button>
+      <div class="modal-header">
+        <div class="modal-icon">
+          <i data-lucide="calendar"></i>
+        </div>
+        <div>
+          <h3>Book Your Free AI Strategy Call</h3>
+          <p>Select a convenient date and time to speak with Rajesh Damerla and the team.</p>
+        </div>
+      </div>
+      <div class="booking-grid">
+        <div class="date-picker-box">
+          <label>Select Date</label>
+          <input type="date" id="booking-date" class="form-input" value="2026-08-10">
+          <div class="time-slots">
+            <label>Select Time Slot</label>
+            <div class="slot-grid">
+              <button class="slot-btn active" onclick="selectTimeSlot(this)">10:00 AM EST</button>
+              <button class="slot-btn" onclick="selectTimeSlot(this)">11:30 AM EST</button>
+              <button class="slot-btn" onclick="selectTimeSlot(this)">02:00 PM EST</button>
+              <button class="slot-btn" onclick="selectTimeSlot(this)">04:00 PM EST</button>
+            </div>
+          </div>
+        </div>
+        <form class="booking-form" onsubmit="handleBookingSubmit(event)">
+          <div class="form-group">
+            <label for="book-name">Your Full Name</label>
+            <input type="text" id="book-name" required placeholder="John Doe" class="form-input">
+          </div>
+          <div class="form-group">
+            <label for="book-email">Business Email</label>
+            <input type="email" id="book-email" required placeholder="john@company.com" class="form-input">
+          </div>
+          <div class="form-group">
+            <label for="book-notes">Goal / Notes (Optional)</label>
+            <textarea id="book-notes" placeholder="What result are you hoping to achieve with AI?" class="form-input" rows="2"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full btn-lg">
+            <i data-lucide="check-circle-2"></i> Confirm Strategy Call
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification Toast -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <div class="logo">
+          <div class="logo-icon"><i data-lucide="sparkles"></i></div>
+          <div class="logo-text">
+            <span class="brand-name">AVINYA SPARK</span>
+            <span class="brand-tag">INTERNATIONAL</span>
+          </div>
+        </div>
+        <p class="footer-desc">Empowering businesses to achieve measurable growth through strategic AI adoption and automation.</p>
+        <div class="footer-socials">
+          <a href="#" class="social-icon" aria-label="LinkedIn"><i data-lucide="linkedin"></i></a>
+          <a href="#" class="social-icon" aria-label="Twitter"><i data-lucide="twitter"></i></a>
+          <a href="#" class="social-icon" aria-label="Mail"><i data-lucide="mail"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="#home" onclick="navigateTo('home'); return false;">Home</a></li>
+          <li><a href="#services" onclick="navigateTo('services'); return false;">Services & Packages</a></li>
+          <li><a href="#audit" onclick="navigateTo('audit'); return false;">Free AI Audit</a></li>
+          <li><a href="#about" onclick="navigateTo('about'); return false;">About Us</a></li>
+          <li><a href="#contact" onclick="navigateTo('contact'); return false;">Contact & Booking</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>AI Offerings</h4>
+        <ul>
+          <li><a href="#services" onclick="navigateTo('services'); return false;">AI Business Growth Audit</a></li>
+          <li><a href="#services" onclick="navigateTo('services'); return false;">AI Lead Generation Engine</a></li>
+          <li><a href="#services" onclick="navigateTo('services'); return false;">AI CEO Assistant</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Get Started</h4>
+        <p class="text-sm text-muted mb-3">Discover your business AI readiness score in under 5 minutes.</p>
+        <button class="btn btn-primary btn-full" onclick="navigateTo('audit')">
+          <i data-lucide="cpu"></i> Take Free AI Audit
+        </button>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container footer-bottom-flex">
+        <p>&copy; 2026 Avinya Spark International. All rights reserved.</p>
+        <p class="website-domain">avinyaspark.com</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
