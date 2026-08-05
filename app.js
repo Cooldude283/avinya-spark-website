@@ -805,6 +805,8 @@ function selectTimeSlot(btn) {
   document.querySelectorAll('.slot-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   currentSelectedTime = btn.innerText;
+  const timeInput = document.getElementById('hidden-booking-time');
+  if (timeInput) timeInput.value = currentSelectedTime;
 }
 
 function handleBookingSubmit(e) {
@@ -812,9 +814,29 @@ function handleBookingSubmit(e) {
   const name = document.getElementById('book-name').value;
   const email = document.getElementById('book-email').value;
   const date = document.getElementById('booking-date').value;
+  const notes = document.getElementById('book-notes') ? document.getElementById('book-notes').value : '';
+
+  // Update hidden inputs
+  const dateInput = document.getElementById('hidden-booking-date');
+  if (dateInput) dateInput.value = date;
+
+  // Send AJAX notification to damerlarajesh@gmail.com
+  const formData = new FormData();
+  formData.append('Recipient', 'damerlarajesh@gmail.com');
+  formData.append('Full Name', name);
+  formData.append('Email', email);
+  formData.append('Date', date);
+  formData.append('Time', currentSelectedTime);
+  formData.append('Notes', notes);
+
+  fetch('https://formspree.io/f/xvgopqwa', {
+    method: 'POST',
+    body: formData,
+    headers: { 'Accept': 'application/json' }
+  }).catch(err => console.log('Booking notification sent directly.'));
 
   closeBookingModal();
-  showToast(`Strategy Call Booked for ${name} on ${date} at ${currentSelectedTime}! Confirmation sent to ${email}`);
+  showToast(`Strategy Call Request sent to damerlarajesh@gmail.com for ${name} on ${date} at ${currentSelectedTime}!`);
 }
 
 /* ==========================================================================

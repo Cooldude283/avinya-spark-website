@@ -95,18 +95,23 @@
             </div>
           </div>
         </div>
-        <form class="booking-form" onsubmit="handleBookingSubmit(event)">
+        <form class="booking-form" action="https://formspree.io/f/xvgopqwa" method="POST" onsubmit="handleBookingSubmit(event)">
+          <input type="hidden" name="_to" value="damerlarajesh@gmail.com">
+          <input type="hidden" name="_subject" value="New AI Strategy Call Booking - Avinya Spark">
+          <input type="hidden" id="hidden-booking-date" name="Appointment Date" value="">
+          <input type="hidden" id="hidden-booking-time" name="Appointment Time" value="10:00 AM EST">
+
           <div class="form-group">
             <label for="book-name">Your Full Name</label>
-            <input type="text" id="book-name" required placeholder="John Doe" class="form-input">
+            <input type="text" id="book-name" name="Full Name" required placeholder="John Doe" class="form-input">
           </div>
           <div class="form-group">
             <label for="book-email">Business Email</label>
-            <input type="email" id="book-email" required placeholder="john@company.com" class="form-input">
+            <input type="email" id="book-email" name="Email" required placeholder="john@company.com" class="form-input">
           </div>
           <div class="form-group">
             <label for="book-notes">Goal / Notes (Optional)</label>
-            <textarea id="book-notes" placeholder="What result are you hoping to achieve with AI?" class="form-input" rows="2"></textarea>
+            <textarea id="book-notes" name="Notes" placeholder="What result are you hoping to achieve with AI?" class="form-input" rows="2"></textarea>
           </div>
           <button type="submit" class="btn btn-primary btn-full btn-lg">
             <i data-lucide="check-circle-2"></i> Confirm Strategy Call
