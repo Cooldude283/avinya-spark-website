@@ -72,7 +72,47 @@ body {
   padding: 0 1.5rem;
 }
 
-/* Header & Nav */
+.g20-banner-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: rgba(99, 102, 241, 0.12);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  padding: 0.35rem 0.85rem;
+  border-radius: 50px;
+  font-size: 0.85rem;
+}
+
+.g20-tag {
+  background: var(--cyan-accent);
+  color: #000;
+  font-weight: 800;
+  font-size: 0.7rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 20px;
+  text-transform: uppercase;
+}
+
+.g20-text {
+  color: var(--text-main);
+  font-weight: 500;
+}
+
+.g20-btn {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 0.2rem 0.65rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.g20-btn:hover {
+  background: var(--primary-hover);
+}
 .site-header {
   position: sticky;
   top: 0;
