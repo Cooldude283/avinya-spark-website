@@ -800,17 +800,14 @@ function handleGeneralContactSubmit(e) {
   const company = document.getElementById('contact-company') ? document.getElementById('contact-company').value : '';
   const message = document.getElementById('contact-msg') ? document.getElementById('contact-msg').value : '';
 
-  // Send automatic background email to both recipients
-  sendBackgroundEmail({
-    _subject: `New Contact Message from ${name} - Avinya Spark`,
-    'Name': name,
-    'Email': email,
-    'Company': company || 'N/A',
-    'Message': message,
-    'Source': 'Contact Form'
-  });
+  // Build mailto link to both recipients
+  const subject = encodeURIComponent(`New Contact Message from ${name} - Avinya Spark`);
+  const body = encodeURIComponent(
+    `Name: ${name}\nEmail: ${email}\nCompany: ${company || 'N/A'}\n\nMessage:\n${message}`
+  );
+  window.location.href = `mailto:roshnori@gmail.com,damerlarajesh@gmail.com?subject=${subject}&body=${body}`;
 
-  showToast(`Message sent! We'll get back to you shortly.`);
+  showToast('Opening email client to send your message...');
   e.target.reset();
 }
 
