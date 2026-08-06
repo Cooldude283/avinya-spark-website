@@ -770,8 +770,20 @@ function handleAuditLeadSubmit(e) {
   const score = calculateTotalScore();
   const tier = getTierForScore(score);
 
-  // Trigger simulated Email Alert & CRM Integration
-  showToast(`Email Alert Sent to Rajesh! Lead: ${name} (${email}) - Score: ${score}/100 [${tier.label}]`);
+  // Send automatic background email to both recipients via Formsubmit.co
+  sendBackgroundEmail({
+    _subject: `New AI Audit Lead - ${name} scored ${score}/100 [${tier.label}]`,
+    'Lead Name': name,
+    'Lead Email': email,
+    'AI Readiness Score': `${score} / 100`,
+    'AI Readiness Tier': `${tier.label} (${tier.tag})`,
+    'Industry': leadInfo.industry,
+    'Company Size': leadInfo.companySize,
+    'Tier Description': tier.desc,
+    'Source': 'AI Audit Quiz'
+  });
+
+  showToast(`Audit complete! Results sent to the team.`);
   console.log('CRM Syncing...', { name, email, score, tier: tier.label, industry: leadInfo.industry, companySize: leadInfo.companySize });
 
   // Move to results screen
@@ -785,7 +797,20 @@ function handleGeneralContactSubmit(e) {
   e.preventDefault();
   const name = document.getElementById('contact-name').value;
   const email = document.getElementById('contact-email').value;
-  showToast(`Message sent! Email alert dispatched to company inbox.`);
+  const company = document.getElementById('contact-company') ? document.getElementById('contact-company').value : '';
+  const message = document.getElementById('contact-msg') ? document.getElementById('contact-msg').value : '';
+
+  // Send automatic background email to both recipients
+  sendBackgroundEmail({
+    _subject: `New Contact Message from ${name} - Avinya Spark`,
+    'Name': name,
+    'Email': email,
+    'Company': company || 'N/A',
+    'Message': message,
+    'Source': 'Contact Form'
+  });
+
+  showToast(`Message sent! We'll get back to you shortly.`);
   e.target.reset();
 }
 
@@ -820,16 +845,47 @@ function handleBookingSubmit(e) {
   const dateInput = document.getElementById('hidden-booking-date');
   if (dateInput) dateInput.value = date;
 
-  // Generate mailto link to both recipients
-  const body = encodeURIComponent(
-    `Name: ${name}\nEmail: ${email}\nDate: ${date}\nTime: ${currentSelectedTime}\nNotes: ${notes || 'N/A'}`
-  );
-  const mailto = `mailto:roshnori@gmail.com,damerlarajesh@gmail.com?subject=New%20AI%20Strategy%20Call%20Booking&body=${body}`;
-  window.location.href = mailto;
+  // Send automatic background email to both recipients
+  sendBackgroundEmail({
+    _subject: `New Strategy Call Booking - ${name} on ${date} at ${currentSelectedTime}`,
+    'Full Name': name,
+    'Email': email,
+    'Appointment Date': date,
+    'Appointment Time': currentSelectedTime,
+    'Notes': notes || 'N/A',
+    'Source': 'Booking Modal'
+  });
 
-  // Close modal and show toast
   closeBookingModal();
-  showToast('Opening email client to send your booking request...');
+  showToast(`Strategy call booked! Confirmation sent to the team.`);
+}
+
+/* ==========================================================================
+   BACKGROUND EMAIL SENDER (Formsubmit.co)
+   Sends to both damerlarajesh@gmail.com and roshnori@gmail.com
+   ========================================================================== */
+
+function sendBackgroundEmail(data) {
+  // Primary recipient: damerlarajesh@gmail.com
+  const payload = {
+    ...data,
+    _cc: 'roshnori@gmail.com',
+    _captcha: 'false',
+    _template: 'table'
+  };
+
+  fetch('https://formsubmit.co/ajax/damerlarajesh@gmail.com', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify(payload)
+  })
+  .then(response => response.json())
+  .then(result => {
+    console.log('Email sent successfully:', result);
+  })
+  .catch(error => {
+    console.error('Email delivery error:', error);
+  });
 }
 
 /* ==========================================================================
