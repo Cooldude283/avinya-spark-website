@@ -820,23 +820,16 @@ function handleBookingSubmit(e) {
   const dateInput = document.getElementById('hidden-booking-date');
   if (dateInput) dateInput.value = date;
 
-  // Send AJAX notification to damerlarajesh@gmail.com
-  const formData = new FormData();
-  formData.append('Recipient', 'damerlarajesh@gmail.com');
-  formData.append('Full Name', name);
-  formData.append('Email', email);
-  formData.append('Date', date);
-  formData.append('Time', currentSelectedTime);
-  formData.append('Notes', notes);
+  // Generate mailto link to both recipients
+  const body = encodeURIComponent(
+    `Name: ${name}\nEmail: ${email}\nDate: ${date}\nTime: ${currentSelectedTime}\nNotes: ${notes || 'N/A'}`
+  );
+  const mailto = `mailto:roshnori@gmail.com,damerlarajesh@gmail.com?subject=New%20AI%20Strategy%20Call%20Booking&body=${body}`;
+  window.location.href = mailto;
 
-  fetch('https://formspree.io/f/xvgopqwa', {
-    method: 'POST',
-    body: formData,
-    headers: { 'Accept': 'application/json' }
-  }).catch(err => console.log('Booking notification sent directly.'));
-
+  // Close modal and show toast
   closeBookingModal();
-  showToast(`Strategy Call Request sent to damerlarajesh@gmail.com for ${name} on ${date} at ${currentSelectedTime}!`);
+  showToast('Opening email client to send your booking request...');
 }
 
 /* ==========================================================================
