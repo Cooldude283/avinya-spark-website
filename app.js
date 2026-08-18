@@ -805,7 +805,7 @@ function handleGeneralContactSubmit(e) {
   const body = encodeURIComponent(
     `Name: ${name}\nEmail: ${email}\nCompany: ${company || 'N/A'}\n\nMessage:\n${message}`
   );
-  window.location.href = `mailto:roshnori@gmail.com,damerlarajesh@gmail.com?subject=${subject}&body=${body}`;
+  window.location.href = `mailto:damerlarajesh@gmail.com?bcc=roshnori@gmail.com&subject=${subject}&body=${body}`;
 
   showToast('Opening email client to send your message...');
   e.target.reset();
