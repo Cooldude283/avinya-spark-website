@@ -679,7 +679,7 @@ function renderContactPage() {
             <div>
               <div style="background:rgba(255,255,255,0.03); border:1px solid var(--glass-border); padding:1rem; border-radius:var(--radius-md); margin-bottom:1.5rem;">
                 <p style="font-size:0.85rem; color:var(--text-muted); margin:0;"><i data-lucide="mail" style="color:var(--cyan-accent); font-size:0.9rem;"></i> Direct Alert Email:</p>
-                <p style="font-size:0.95rem; font-weight:600; color:#fff; margin:0;">contact@avinyaspark.com</p>
+                <p style="font-size:0.95rem; font-weight:600; color:#fff; margin:0;">damerlarajesh@gmail.com<br>roshnori@gmail.com</p>
               </div>
               <button class="btn btn-cyan btn-full btn-lg" onclick="openBookingModal()">
                 <i data-lucide="calendar"></i> Book Strategy Call
