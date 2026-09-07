@@ -866,6 +866,7 @@ function sendBackgroundEmail(data) {
   // Primary recipient: roshnori@gmail.com (receives one-time confirmation)
   const payload = {
     ...data,
+    'Submitted At (IST)': getISTTimestamp(),
     _cc: 'damerlarajesh@gmail.com',
     _captcha: 'false',
     _template: 'table'
@@ -883,6 +884,12 @@ function sendBackgroundEmail(data) {
   .catch(error => {
     console.error('Email delivery error:', error);
   });
+}
+
+// Returns current date/time formatted in IST (UTC+5:30)
+function getISTTimestamp() {
+  const now = new Date();
+  return now.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', dateStyle: 'full', timeStyle: 'medium' });
 }
 
 /* ==========================================================================
