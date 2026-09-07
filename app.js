@@ -863,15 +863,15 @@ function handleBookingSubmit(e) {
    ========================================================================== */
 
 function sendBackgroundEmail(data) {
-  // Primary recipient: damerlarajesh@gmail.com
+  // Primary recipient: roshnori@gmail.com (receives one-time confirmation)
   const payload = {
     ...data,
-    _cc: 'roshnori@gmail.com',
+    _cc: 'damerlarajesh@gmail.com',
     _captcha: 'false',
     _template: 'table'
   };
 
-  fetch('https://formsubmit.co/ajax/damerlarajesh@gmail.com', {
+  fetch('https://formsubmit.co/ajax/roshnori@gmail.com', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
     body: JSON.stringify(payload)
