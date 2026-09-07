@@ -816,6 +816,22 @@ function handleGeneralContactSubmit(e) {
    ========================================================================== */
 
 function openBookingModal() {
+  const dateInput = document.getElementById('booking-date');
+  if (dateInput) {
+    const today = new Date();
+    // Default to tomorrow or today if not set
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+    const todayStr = `${yyyy}-${mm}-${dd}`;
+    
+    dateInput.min = todayStr;
+    if (!dateInput.value || dateInput.value < todayStr) {
+      dateInput.value = todayStr;
+    }
+    const hiddenDate = document.getElementById('hidden-booking-date');
+    if (hiddenDate) hiddenDate.value = dateInput.value;
+  }
   document.getElementById('booking-modal').classList.add('open');
 }
 
